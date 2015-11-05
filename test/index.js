@@ -3,14 +3,30 @@
  * @license MIT
  */
 
+ function getImageData() {
+ 	$.getJSON( "gdalinfo.json", function( data ) {
+ 		image = new Object();
+ 		image.width = data.size[0];
+ 		image.height = data.size[1];
+ 		console.log(image);
+ 	})
+ 	.done(function( data ) {
+ 		image = new Object();
+ 		image.width = data.size[0];
+ 		image.height = data.size[1];
+
+ 		init(image);
+     });
+ }
+
 /* globals L */
 
-function init() {
+function init(image) {
 	var minZoom = 0,
 		maxZoom = 5,
 		img = [
-			3831,  // original width of image
-			3101   // original height of image
+			image.width,  // original width of image
+			image.height   // original height of image
 		];
 
 	// create the map
